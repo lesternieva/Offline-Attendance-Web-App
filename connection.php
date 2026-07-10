@@ -1,5 +1,6 @@
 <?php
-    /* $host = "localhost";
+    // for PC MySQL
+    $host = "localhost";
     $username = "root";
     $password = "";
     $database = "studentattendance";
@@ -10,14 +11,16 @@
         $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
         die("Connection failed: " . $e->getMessage());
-    } */
+    }
 
-    try{
+
+    // for android sqlite
+    /* try{ 
         $conn = new PDO("sqlite:" . __DIR__ . "/attendance.db");
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         $conn->exec('PRAGMA foreign_keys = ON;'); // SQLite needs this explicitly turned on
     } catch (PDOException $e) {
         die("Connection failed: " . $e->getMessage());
-    }
+    } */
 ?>
