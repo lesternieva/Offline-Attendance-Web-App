@@ -25,6 +25,7 @@
     update update push push
     change2
     Change3
+    Change 1
     <div class="grid-wrapper">
         <?php include 'navbar.php'; ?>
         <main class="main-grid">
