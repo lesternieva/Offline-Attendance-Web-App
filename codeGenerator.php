@@ -32,8 +32,8 @@ function getGateCode($conn, $sched_id, $course_code){
     // but... if it is expired or does not exist yet -- make one then save
     $newCode = gateCodeGenerator($course_code);
 
-    $insert = $conn->prepare("INSERT gate_codes (sched_id, code, generated_at)
-                              VALUES (?, ?, NOW())");
+    $insert = $conn->prepare("INSERT INTO gate_codes (sched_id, code, generated_at)
+                              VALUES (?, ?, datetime('now'))");
     $insert->execute([$sched_id, $newCode]);
 
     return $newCode;
