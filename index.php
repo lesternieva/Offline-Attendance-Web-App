@@ -22,7 +22,7 @@
     
 </head>
 <body>
-    update update
+    update update push push
     <div class="grid-wrapper">
         <?php include 'navbar.php'; ?>
         <main class="main-grid">
