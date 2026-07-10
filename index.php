@@ -22,6 +22,7 @@
     
 </head>
 <body>
+    bLAH bLAH
     <div class="grid-wrapper">
         <?php include 'navbar.php'; ?>
         <main class="main-grid">
