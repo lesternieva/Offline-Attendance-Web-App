@@ -1,5 +1,5 @@
 <?php
-ob_start();
+    ob_start();
     include 'connection.php';
     include 'codeGenerator.php';
     include 'currentSched.php';
