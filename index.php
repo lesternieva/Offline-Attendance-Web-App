@@ -1,12 +1,10 @@
 <?php
+ob_start();
     include 'connection.php';
     include 'codeGenerator.php';
     include 'currentSched.php';
     $page = $_GET['page'] ?? 'check-in';
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
