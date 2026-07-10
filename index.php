@@ -2,10 +2,7 @@
     include 'connection.php';
     include 'codeGenerator.php';
     include 'currentSched.php';
-
     $page = $_GET['page'] ?? 'check-in';
-
-
 ?>
 
 
