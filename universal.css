@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lexend', sans-serif;
+}
+
+:root {
+    --secondary-color:#ffffef;
+    --primary-color: #c6ba12;
+    --tertiary-color: #ffffff;
+    --font-primary-size: clamp(1.5rem, 4vw, 2rem);
+    --font-secondary-size: clamp(0.9rem, 2vw, 1.5rem);
+    --font-tertiary-size: clamp(0.55rem, 1.5vw, 0.875rem);
+}
+
+
+.grid-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 20dvh 50px 1fr;
+    grid-template-areas:
+        "header"
+        "navbar"
+        "main";
+    height: 100dvh;
+    overflow: hidden;
+}
+
+.header-grid {
+    grid-area: header;
+    background-color: var(--primary-color);
+    padding: 10px 20px;
+    line-height: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "title time";
+
+}
+
+.header-title {
+    grid-area: title;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header-time {
+    grid-area: time;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom:0;
+}
+
+.header-grid p{
+    color: var(--tertiary-color);
+    font-size: var(--font-secondary-size);
+    margin: 0;
+}
+
+.header-grid h1 {
+    color: var(--secondary-color);
+    font-size: var(--font-primary-size);
+    margin: 0;
+}
+
+/* ======= Navbar Styles ========================= */
+
+.navbar-grid {
+    grid-area: navbar;
+    padding-left: 20px;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border-bottom: 2px solid #cfc3b9;
+    display: flex;
+    gap: 200px;
+}
+
+.navbar-grid a{
+    color: #BF4646;
+    font-size: var(--font-secondary-size);
+    display: inline-block;
+    margin-top: 15px
+}
+
+.navbar-grid a.active{
+    color: #8a8a8a;
+    font-weight: 600;
+}
+
+/* ======= Main Styles ========================= */
+
+.main-grid {
+    grid-area: main;
+    padding: 30px 20px;
+    background-color: var(--secondary-color);
+    /* background-image: url("https://t4.ftcdn.net/jpg/01/77/26/13/360_F_177261357_rR90DEpmiw8qK68ba7e7Zh8w9mb3D6Bv.jpg"), ;
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat; */
+    
+    /* background: var(--secondary-color) 
+                url("https://t4.ftcdn.net/jpg/01/77/26/13/360_F_177261357_rR90DEpmiw8qK68ba7e7Zh8w9mb3D6Bv.jpg")
+                no-repeat center center / cover; */
+
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    
+}
+
+/* ======= MyCard Styles ========================= */
+.MyCard {
+    background-color: #ffffff;
+    border: 1px solid #c0c0c0;
+    border-radius: 10px;
+    
+    padding: 25px;
+    
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.MyCard.checkin {
+    margin: 20px 30px 0px 30px;
+    width: 80%;
+}
+
+.MyCard.dashboard {
+    margin-bottom: 15px;
+    width: 80%;
+}
+
+.MyCard.register {
+    margin-bottom: 15px;
+    width: 80%;
+}
+
+.MyCard p {
+    margin: 0px;
+}
+
+.MyCard div {
+    margin-bottom: 20px;
+}
+
+.reminders {
+   margin: 0px 30px; 
+   color: #989898; 
+   justify-content: center; 
+   text-align: center;
+   font-size: 14px;
+}
+
+.reminders p {
+    margin: 0px;
+
+}
+
+/* ======= Other Styles ========================= */
+.active-anchor {
+    border-bottom: 3px solid var(--primary-color); 
+    font-weight: bold;   
+    height: 100%;
+}
+
+.long-text {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.messageBox {
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 80%;
+    border: 1.5px solid;
+    font-size: var(--font-secondary-size);
+    border-radius: 10px;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.messageBox.success {
+    background-color: #87bd82;
+    border-color: #2c9023;
+    color: #11490c;
+
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.messageBox.error {
+    background-color: #f8d7da;
+    border-color: #dc3545;
+    color: #721c24;
+
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
