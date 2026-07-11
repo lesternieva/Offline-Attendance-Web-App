@@ -48,7 +48,7 @@
     </div>
     <div>
         <p style="font-size: var(--font-tertiary-size); color: #989898;">Please double check your name before clicking the check-in button.</p>
-        <button class="btn primaryColor" id="check_in_button" style="width: 100%; margin-top: 1rem; background-color: var(--primary-color); color: white;">Check In</button>
+        <button class="btn" id="check_in_button" style="width: 100%; margin-top: 1rem; background-color: var(--primary-color); color: white;">Check In</button>
     </div>
 </div>
 
