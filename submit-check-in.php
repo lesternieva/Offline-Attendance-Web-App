@@ -37,7 +37,7 @@ if($stmt->fetch()) {
 } */
 
 // check if the student has already checked in for the same schedule
-$stmt = $conn->prepare("SELECT id FROM attendance WHERE student_id = ? AND gate_code = ? AND DATE(time_in) = CURDATE()");
+$stmt = $conn->prepare("SELECT id FROM attendance WHERE student_id = ? AND gate_code = ? AND DATE(time_in) = DATE('now')");
 $stmt->execute([$studentID, $gateCode]);
 if ($stmt->fetch()) {
     echo json_encode(['success' => false, 'message' => 'This student has already been checked in.']);
@@ -64,7 +64,7 @@ $sql = "SELECT id FROM schedules
     $currentActiveSched = 3/* $schedule['id'] -- uncomment  */;
 
 $stmt = $conn->prepare("INSERT INTO attendance (time_in, gate_code, sched_id, student_id) 
-                        VALUES (NOW(), ?, ?, ?)");
+                        VALUES (DATETIME('now'), ?, ?, ?)");
 $stmt->execute([$gateCode, $currentActiveSched, $studentID]);
 
 echo json_encode(['success' => true, 'message' => 'Check-in successful.']);

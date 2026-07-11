@@ -6,9 +6,10 @@ function gateCodeGenerator($course_code) {
     return str_replace(' ', '', $course_code) . $day . $random;
 }
 
-const minutesBeforeExpiration = 2;
 
-define('GATE_CODE_INTERVAL_MINUTES', minutesBeforeExpiration);
+const allowableCheckInMinutes = 60; // 1 hr 
+
+define('GATE_CODE_INTERVAL_MINUTES', allowableCheckInMinutes);
 
 function getGateCode($conn, $sched_id, $course_code){
     $stmt = $conn->prepare('SELECT code, generated_at FROM gate_codes
