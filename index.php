@@ -24,6 +24,7 @@
                 switch($page){
                     case 'dashboard': include 'dashboard.php'; break;
                     case 'register': include 'register.php'; break;
+                    case 'report': include 'report.php'; break;
                     default: include 'check-in.php';
                 }
             ?>  

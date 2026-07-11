@@ -74,6 +74,9 @@
     }
 ?>
 
+<div id="" class="reminders" style="margin-bottom: 15px;">
+    <p style="font-size-: var(--font-tertiary-size);">Take a look on current our attendance today. Don't forget to refresh.</p>
+</div>
 
 <?php if (isset($_SESSION['message'])): // check if  ?>
     
@@ -100,7 +103,7 @@
 
         <div class="d-flex flex-column gap-2" style="margin-top: 1rem;">
             <p style="font-size: var(--font-tertiary-size);">STUDENT NO.</p>
-            <input type="text" id="reg-student-no" name="reg-student-no" class="form-control" placeholder="2023102ABC" style="width: 100%;" require>
+            <input type="text" id="reg-student-no" name="reg-student-no" class="form-control" placeholder="2023XXXXXX" style="width: 100%;" require>
         </div>
         
         <div class="form-group">

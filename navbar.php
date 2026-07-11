@@ -1,14 +1,17 @@
-
+<!-- 
+    page is indicated here (in the achor tag)
+-->
 
 <header class="header-grid">
     <div class="header-title ">
-        <p>BSM CS 4A - Attendance</p>
+        <h3 id="labelClock" style="color: var(--tertiary-color); font-size: var(--font-secondary-size);">BSM CS 4A - Attendance</h3>
         <h1 id="rollCall" style="color: var(--secondary-color)">Roll Call</h1>
-        <p class="tertiaryColor"><?php echo $course_code . ' - ' . $course_name; ?> </p>
+        <p><?php echo $course_code . ' - ' . $course_name; ?> </p>
     </div>
     <div class="header-time">
-        <h3 id="labelClock" style="color: var(--tertiary-color); font-size: var(--font-secondary-size);">Current Time</h3>
+        <h3 id="labelClock" style="color: var(--tertiary-color); font-size: var(--font-secondary-size);">Current Datetime</h3>
         <h1 id="clock"></h1>
+        <p id="date"></p>
     </div>
 </header>
 
@@ -25,6 +28,9 @@
     </div>
     <div class="<?= ($page == 'register') ? 'active-anchor' : ''?>">
         <a class="text-decoration-none <?= ($page == 'register') ? 'active-anchor' : ''?>" style="color: var(--primary-color)" href="index.php?page=register">Register</a>
+    </div>
+    <div class="<?= ($page == 'report') ? 'active-anchor' : ''?>">
+        <a class="text-decoration-none <?= ($page == 'report') ? 'active-anchor' : ''?>" style="color: var(--primary-color)" href="index.php?page=report">Report</a>
     </div>
     
     

@@ -28,11 +28,15 @@
     $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>  
 
+<div id="" class="reminders" style="margin-bottom: 15px;">
+    <p style="font-size-: var(--font-tertiary-size);">Take a look on current our attendance today. Don't forget to refresh.</p>
+</div>
+
 <?php foreach ($courses as $course): ?>
     <?php $totalAbsent = $course['total_enrolled'] - $course['total_attendance'];?>
     <div class="MyCard dashboard">
         <h5 id="course_name"><?= htmlspecialchars($course['course_name']) ?></h5>
-        <h6><?= htmlspecialchars($course['course_code'])?></h6>
+        <p style="font-size: var(--font-secondary-size); color: #989898"><?= htmlspecialchars($course['course_code'])?></p>
         <div class="d-flex flex-row gap-5 mt-3 mb-0">
             <div class="mb-0">
                 <p class="card text-white bg-success p-1 mb-1 text-center">Total Present</p>

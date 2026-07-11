@@ -64,7 +64,6 @@ const subjectColors = {
         tertiary: "#480202"
     }
 }
-
 function applyTheme(subjectName){
     let activePalette = subjectColors[subjectName];
     const root = document.documentElement;
@@ -203,3 +202,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// Report Date submssion guard
+const dateFrom = document.getElementById('date_from');
+const dateTo = document.getElementById('date_to');
+
+// ensures that dateTo is never earlier than dateFrom
+dateFrom.addEventListener('change', () => {
+    dateTo.min = dateFrom.value;
+});
+
+// and vice versa
+dateTo.addEventListener('change', () => {
+    dateFrom.max = dateTo.value;
+});
+
+// CSV related
+/* document.getElementById('export_csv_button').addEventListener('click', function () {
+    const studentNumber = document.getElementById("student_no_for_dtr").value;
+    const from = document.getElementById('date_from').value;
+    const to = document.getElementById('date_to').value;
+
+    if (!from || !to) {
+        alert('Please select both valid dates');
+        return;
+    }
+
+    const url = 'export-csv.php?course_code=' + encodeURIComponent(courseCode)
+              + '&from=' + from + '&to=' + to;
+
+    window.location.href = url;
+}); */

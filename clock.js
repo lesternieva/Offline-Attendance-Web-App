@@ -1,5 +1,6 @@
 function updateClock() {
     const now = new Date();
+    const dateNow = new Date();
 
     const time = now.toLocaleTimeString('en-US', {
         hour: '2-digit',
@@ -9,6 +10,7 @@ function updateClock() {
     });
 
     document.getElementById("clock").textContent = time;
+    document.getElementById("date").textContent = dateNow.toDateString();
 }
 
 updateClock();

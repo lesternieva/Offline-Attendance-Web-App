@@ -44,7 +44,7 @@
     </div>
     <div class="d-flex flex-column gap-2" style="margin-top: 1rem;">
         <p style="font-size: var(--font-tertiary-size);">STUDENT NO.</p>
-        <input type="text" id="student_no" class="form-control" placeholder="2023102ABC" style="width: 100%;" require>
+        <input type="text" id="student_no" class="form-control" placeholder="2023XXXXXX" style="width: 100%;" require>
     </div>
     <div>
         <p style="font-size: var(--font-tertiary-size); color: #989898;">Please double check your name before clicking the check-in button.</p>
