@@ -1,7 +1,7 @@
 <?php
     include 'connection.php';
 
-    $today = 'Monday'/* date("l") */; 
+    $today = 'Saturday'/* date("l") */; 
     $sql = "SELECT id, course_code, course_name FROM schedules
             WHERE day_of_week = ?
             AND ? BETWEEN start_time AND end_time";

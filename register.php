@@ -39,9 +39,7 @@
                 $subjectMap = [];
                 $query = $conn->query("SELECT id, course_name FROM schedules");
                 while ($row = $query->fetch(PDO::FETCH_ASSOC)){
-                    $courseName = $row['course '];
-
-                    $subjectMap[$row['course_name']] = $row['id'];
+                    $subjectMap[$row['course_name']][] = $row['id'];
 
                 }
 
@@ -49,9 +47,8 @@
 
                 foreach ($selectedSubjects as $name) {
                     if(isset($subjectMap[$name])){
-                        $schedID = $subjectMap[$name];
-
-                        $enrollStudent->execute([$studentID, $schedID]);
+                        foreach ($subjectMap[$name] as $schedID)
+                            $enrollStudent->execute([$studentID, $schedID]);
                     }
                 }
 

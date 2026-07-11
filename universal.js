@@ -65,7 +65,6 @@ const subjectColors = {
     }
 }
 
-
 function applyTheme(subjectName){
     let activePalette = subjectColors[subjectName];
     const root = document.documentElement;
@@ -97,7 +96,6 @@ function applyTheme(subjectName){
     root.style.setProperty('--primary-color', activePalette.primary);
     root.style.setProperty('--secondary-color', activePalette.secondary);
     root.style.setProperty('--tertiary-color', activePalette.tertiary);
-    console.log(subjectName);
 }
 document.addEventListener('DOMContentLoaded', function() {
     applyTheme(currentSubject);
@@ -176,9 +174,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // check all subjects if 'ALL' checkbox is ticked
 document.addEventListener('DOMContentLoaded', () => {
-    // Event Delegation: Attach to document so it never fails
+   
     document.addEventListener('change', (event) => {
-        
         // Handle "Select All" logic
         if (event.target && event.target.id === 'selectAllSubjects') {
             const isChecked = event.target.checked;
