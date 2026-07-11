@@ -12,8 +12,8 @@
     $activeSchedule = $stmt->fetch(PDO::FETCH_ASSOC);
     $course_id = $activeSchedule['id'] ?? '';
 
-
-    if ($stmt->rowCount() > 0) {
+    
+    if ($activeSchedule) {
         $course_code = $activeSchedule['course_code'];
         $course_name = $activeSchedule['course_name'];
     } else {

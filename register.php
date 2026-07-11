@@ -61,7 +61,7 @@
                 $_SESSION['message_type'] = "success";  
             } catch (PDOException $e) {
                 if ($e->getCode() == '23000') {
-                    $_SESSION['message'] = "Pauulit-ulit ka? Registered an yung student number na 'yan nak. Please contact your secretary if you think this is a mistake."/*  . $e */;
+                    $_SESSION['message'] = "Pauulit-ulit ka? Registered na yung student number na 'yan nak. Please contact your secretary if you think this is a mistake."/*  . $e */;
                     $_SESSION['message_type'] = "error";
                 } else {
                     // Print the specific database error message
