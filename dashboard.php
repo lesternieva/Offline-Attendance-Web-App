@@ -9,19 +9,10 @@
      FROM schedules s LEFT JOIN attendance a 
      ON s.id = a.sched_id AND DATE(a.time_in) = DATE('now') 
      GROUP BY s.id"; 
-
-    /* $stmt = $conn->query($presentStmt); */
-   
     
     //           grace period + connection issue + no. stud consideration + lastMinute
     $gracePeriod = 15 + 5 + 20 + 5; 
-    /* $lateStmt = 
-        "SELECT COUNT(a.id) as total_late 
-         FROM attendance a
-         LEFT JOIN schedules s ON a.sched_id = s.id
-            AND TIME(a.time_in) > TIME(s.start_time, '+' || ? || 'minutes')
-            AND DATE(a.time_in) = DATE('now')
-         GROUP BY s.id"; */
+    
 
     $stmt = $conn->prepare($attendanceStmt);
     $stmt->execute([$gracePeriod]);

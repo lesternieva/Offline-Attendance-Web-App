@@ -208,14 +208,17 @@ const dateFrom = document.getElementById('date_from');
 const dateTo = document.getElementById('date_to');
 
 // ensures that dateTo is never earlier than dateFrom
-dateFrom.addEventListener('change', () => {
-    dateTo.min = dateFrom.value;
-});
+if (dateFrom && dateTo) {
+    dateFrom.addEventListener('change', () => {
+        dateTo.min = dateFrom.value;
+    });
+    // and vice versa
+    dateTo.addEventListener('change', () => {
+        dateFrom.max = dateTo.value;
+    });
+}
 
-// and vice versa
-dateTo.addEventListener('change', () => {
-    dateFrom.max = dateTo.value;
-});
+
 
 // CSV related
 /* document.getElementById('export_csv_button').addEventListener('click', function () {
