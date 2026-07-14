@@ -21,8 +21,6 @@ function getGateCode($conn, $sched_id, $course_code){
 
     $intervalSeconds = GATE_CODE_INTERVAL_MINUTES * 60;
 
-    
-
     if($existingCode) {
         $ageSeconds = time() - strtotime($existingCode['generated_at']);
         if ($ageSeconds < $intervalSeconds) {

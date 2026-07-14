@@ -5,10 +5,10 @@
     if (!$studentStmt) {
         print_r($conn->errorInfo());
     }
+
     // for checking the active schedule
     if($activeSchedule) {
         $gateCode = getGateCode($conn, $activeSchedule['id'], $activeSchedule['course_code']);
-        
     } else {
         $gateCode = "ಠ▃ಠ";
     }

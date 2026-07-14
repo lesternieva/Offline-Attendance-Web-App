@@ -38,7 +38,7 @@
     const currentSubject = "<?php echo htmlspecialchars($course_code) ?>";
 </script>
 
-<div class="navbar-grid gap-3" style="overflow-x: scroll; overflow-y: hidden;">
+<div class="navbar-grid gap-3">
     <div class="<?= ($page == 'check-in') ? 'active-anchor' : ''?>">
     <a class="text-decoration-none" style="color: var(--primary-color)" href="index.php?page=check-in">Check In</a>
     </div>
