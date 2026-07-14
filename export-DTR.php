@@ -19,40 +19,59 @@
     }
 
     $schedules = $conn->query(
-        "SELECT id, course_name FROM schedules"
+        "SELECT id, course_name, day_of_week FROM schedules"
     );
 
-    $timeInForCourses = $conn->prepare(
-        "SELECT 
-            DATE(att.time_in) as log_date,
-            CASE 
-                WHEN ((TIME(att.time_in) > TIME(sc.start_time, '+' || ? || ' minutes')) 
-                AND (DATE(time_in) BETWEEN ? AND ?)) 
-                    THEN 'L'
-                    ELSE 'P'
-            END AS status
-        FROM attendance att
-        JOIN schedules sc ON  att.sched_id = sc.id
-        JOIN student st ON att.student_id = st.id
-        WHERE sc.id = ? AND st.student_no = ?
-        ORDER BY att.time_in ASC;"
-    );
+    // to unify same subject course just different name
+    $courseMap = [];
+    $courseDay = [];
+    while ($row = $schedules-> fetch(PDO::FETCH_ASSOC)) {
+        $courseMap[$row['course_name']][] = $row['id'];
+        $courseDay[$row['course_name']][] = $row['day_of_week'];
+    }
+
 
     $gracePeriod = 15 + 5 + 20 + 5;
     $startDate = new DateTime($from);
     $endDate = new DateTime($to);
     $endDate->modify('+1 day'); // an incrase of date because the next logid DatePeriod exclude the end date
+    
+
+   
 
     $period = new DatePeriod($startDate, new DateInterval('P1D'), $endDate); // the middle variable just tells that the Period interval increases by 1 Day
 
-    
+    // for CSV file
+    $matrix = [];
+    $courseNamesForCSV = array_keys($courseMap); // this just copu and preserves the column order
 
-    while ($row = $schedules->fetch(PDO::FETCH_ASSOC)) {
+
+    foreach ($courseMap as $courseName => $schedIDs) {
         $attendance = [];
-        $courseID = $row['id'];
-        $courseName = $row['course_name'];
-        $timeInForCourses->execute([$gracePeriod, $from, $to, $courseID, 
-                                    $studentNumber]);
+
+        // this makes an array of that count whose elements is ? separated by ,
+        $placeholder = implode(',', array_fill(0, count($schedIDs), '?'));
+
+        $timeInForCourses = $conn->prepare(
+            "SELECT 
+                DATE(att.time_in) as log_date,
+                CASE 
+                    WHEN ((TIME(att.time_in) > TIME(sc.start_time, '+' || ? || ' minutes')) 
+                    AND (DATE(time_in) BETWEEN ? AND ?)) 
+                        THEN 'L'
+                        ELSE 'P'
+                END AS status
+            FROM attendance att
+            JOIN schedules sc ON  att.sched_id = sc.id
+            LEFT JOIN student st ON att.student_id = st.id
+            WHERE sc.id IN ($placeholder) AND st.student_no = ?
+            ORDER BY att.time_in ASC;"
+        );
+
+        /* $courseID = $row['id'];
+        $courseName = $row['course_name']; */
+        $params = array_merge([$gracePeriod, $from, $to], $schedIDs, [$studentNumber]);
+        $timeInForCourses->execute($params);
 
         while ($att = $timeInForCourses->fetch(PDO::FETCH_ASSOC)){
             if (isset($att['log_date']) && isset($att['status'])) {
@@ -60,17 +79,35 @@
             }
         }
         
-        // just for testing
+        
         foreach ($period as $date) {
             $currentDate = $date->format('Y-m-d');
-            echo $courseName . " (" . $currentDate . ") - ";
-            
-            // Use null coalescing to provide a default if the key isn't in the array
-            echo $attendance[$currentDate] ?? "A";
-            echo "<br>";
+            $dayOfCurrentDate = $date->format('l');
+
+            if (!isset($courseDay[$courseName]) || !in_array($dayOfCurrentDate, $courseDay[$courseName], true)){
+                $matrix[$currentDate][$courseName] = '--';
+                continue;
+            }
+
+            $matrix[$currentDate][$courseName] = $attendance[$currentDate] ?? 'A';
+
         }
-        
-        
     }   
 
+    // contruction of CSV data
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename="attendance_' . $studentNumber . '.csv"');
+
+    $output = fopen('php://output', 'w');
+
+    fputcsv($output, array_merge(['Date'], $courseNamesForCSV));
+    foreach ($matrix as $date => $courses) {
+        $dateWithDay = $date . ' (' . ((new DateTime($date))->format('D')) . ')';
+
+        $rowCSV = [$dateWithDay];
+        foreach ($courseNamesForCSV as $c) {
+            $rowCSV[] = $courses[$c] ?? 'hatdog';
+        }
+        fputcsv($output, $rowCSV);
+    }
 ?>
