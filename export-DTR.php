@@ -43,12 +43,13 @@
 
     // for CSV file
     $matrix = [];
+    $summary = [];
     $courseNamesForCSV = array_keys($courseMap); // this just copu and preserves the column order
 
 
     foreach ($courseMap as $courseName => $schedIDs) {
         $attendance = [];
-
+        $summary[$courseName] = ['P' => 0, 'A' => 0, 'L' => 0];
         // this makes an array of that count whose elements is ? separated by ,
         $placeholder = implode(',', array_fill(0, count($schedIDs), '?'));
 
@@ -83,31 +84,50 @@
         foreach ($period as $date) {
             $currentDate = $date->format('Y-m-d');
             $dayOfCurrentDate = $date->format('l');
+            $status  = $attendance[$currentDate] ?? 'A';
 
             if (!isset($courseDay[$courseName]) || !in_array($dayOfCurrentDate, $courseDay[$courseName], true)){
                 $matrix[$currentDate][$courseName] = '--';
                 continue;
             }
 
-            $matrix[$currentDate][$courseName] = $attendance[$currentDate] ?? 'A';
 
-        }
+            $matrix[$currentDate][$courseName] = $status;
+
+            // just for summary on the very bottom of csv
+            if (isset($summary[$courseName][$status])) $summary[$courseName][$status]++;
+        }   
     }   
 
-    // contruction of CSV data
+    // contruction of DTR-CSV data
     header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename="attendance_' . $studentNumber . '.csv"');
 
     $output = fopen('php://output', 'w');
 
-    fputcsv($output, array_merge(['Date'], $courseNamesForCSV));
+    fputcsv($output, array_merge(['Date'], $courseNamesForCSV)); // this would literally put Date and courseNames on on the first row
     foreach ($matrix as $date => $courses) {
         $dateWithDay = $date . ' (' . ((new DateTime($date))->format('D')) . ')';
 
-        $rowCSV = [$dateWithDay];
+        $status = [$dateWithDay]; // status (P, L, A) on that day
         foreach ($courseNamesForCSV as $c) {
-            $rowCSV[] = $courses[$c] ?? 'hatdog';
+            $status[] = $courses[$c] ?? 'hatdog';
         }
-        fputcsv($output, $rowCSV);
+        fputcsv($output, $status); // then put the status on rows for each Courses on that day 
     }
+
+    // this will just put 1 row blank space
+    fputcsv($output, array_fill(0, count($courseNamesForCSV) + 1, ''));
+
+    $labels = ['P' => 'Present Days',  'A' => 'Absences', 'L' => 'Late Count'];
+
+    foreach ($labels as $key => $label) {
+        $status = [$label];
+        foreach($courseNamesForCSV as $courseName) {
+            $status[] = $summary[$courseName][$key] ?? 0;
+        }
+        fputcsv($output, $status);
+    }
+    fclose($output);
+    exit;
 ?>
