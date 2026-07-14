@@ -11,16 +11,15 @@
     --secondary-color:#ffffef;
     --primary-color: #c6ba12;
     --tertiary-color: #ffffff;
-    --font-primary-size: clamp(1.5rem, 4vw, 2rem);
-    --font-secondary-size: clamp(0.9rem, 2vw, 1.5rem);
+    --font-primary-size: clamp(1.35rem, 4vw, 1.5rem);
+    --font-secondary-size: clamp(0.9rem, 2vw, 1.3rem);
     --font-tertiary-size: clamp(0.6rem, 1.5vw, 0.875rem);
 }
-
 
 .grid-wrapper {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 20dvh 50px 1fr;
+    grid-template-rows: auto 50px 1fr;
     grid-template-areas:
         "header"
         "navbar"
@@ -37,7 +36,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas: "title time";
-
+    flex-grow: 0;
+    flex-shrink: 1;
 }
 
 .header-title {
@@ -45,6 +45,7 @@
     display: flex;
     flex-direction: column;
     margin-top: 1.5rem;
+    line-height: 1.8;
 }
 
 .header-time {
@@ -60,6 +61,7 @@
     color: var(--tertiary-color);
     font-size: var(--font-secondary-size);
     margin: 0;
+    
 }
 
 .header-grid h1 {

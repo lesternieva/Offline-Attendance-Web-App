@@ -4,8 +4,27 @@
 
 <header class="header-grid">
     <div class="header-title ">
-        <h3 id="labelClock" style="color: var(--tertiary-color); font-size: var(--font-secondary-size);">BSM CS 4A - Attendance</h3>
-        <h1 id="rollCall" style="color: var(--secondary-color)">Roll Call</h1>
+        <h3 id="labelClock" style="color: var(--tertiary-color); font-size: var(--font-secondary-size); margin-bottom: 0;">BSM CS 4A - Attendance</h3>
+        <h1 id="rollCall" style="color: var(--secondary-color); ">
+            <?php
+                switch ($page) {
+                    case 'check-in':
+                        echo 'Check In';
+                        break;
+                    case 'dashboard':
+                        echo 'Dashboard';
+                        break;
+                    case 'register':
+                        echo 'Register';
+                        break;
+                    case 'report':
+                        echo 'Report';
+                        break;
+                    default:
+                        echo 'Roll Call';
+                }
+            ?>
+        </h1>
         <p><?php echo $course_code . ' - ' . $course_name; ?> </p>
     </div>
     <div class="header-time">
@@ -19,7 +38,7 @@
     const currentSubject = "<?php echo htmlspecialchars($course_code) ?>";
 </script>
 
-<div class="navbar-grid gap-3" >
+<div class="navbar-grid gap-3" style="overflow-x: scroll; overflow-y: hidden;">
     <div class="<?= ($page == 'check-in') ? 'active-anchor' : ''?>">
     <a class="text-decoration-none" style="color: var(--primary-color)" href="index.php?page=check-in">Check In</a>
     </div>

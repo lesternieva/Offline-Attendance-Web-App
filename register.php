@@ -75,7 +75,7 @@
 ?>
 
 <div id="" class="reminders" style="margin-bottom: 15px;">
-    <p style="font-size-: var(--font-tertiary-size);">Take a look on current our attendance today. Don't forget to refresh.</p>
+    <p style="font-size-: var(--font-tertiary-size);">Please do me a favor, register here for a very short while — make sure every details are correct. Thank you! </p>
 </div>
 
 <?php if (isset($_SESSION['message'])): // check if  ?>
