@@ -80,13 +80,14 @@
     border-bottom: 2px solid #cfc3b9;
     display: flex;
     gap: 200px;
+    height: auto;
 }
 
 .navbar-grid a{
     color: #BF4646;
     font-size: var(--font-secondary-size);
     display: inline-block;
-    margin-top: 15px
+    margin-top: 15px;
 }
 
 .navbar-grid a.active{
